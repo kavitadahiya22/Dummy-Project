@@ -1,140 +1,276 @@
-# Penetration Testing Framework
+# Penetration Testing Framework# Penetration Testing Framework
 
-A comprehensive, modular penetration testing framework built with FastAPI, CrewAI agents, and Docker integration. This framework provides automated security testing capabilities with intelligent reasoning through Ollama DeepSeek and comprehensive result storage in OpenSearch.
 
-## 🚨 **ETHICAL USE NOTICE**
 
-**This tool is designed for authorized penetration testing only. Currently restricted to testing juice-shop.herokuapp.com. Unauthorized use against any other targets is prohibited and may be illegal.**
+A comprehensive, modular penetration testing framework built with FastAPI, CrewAI agents, and Docker integration.A comprehensive, modular penetration testing framework built with FastAPI, CrewAI agents, and Docker integration. This framework provides automated security testing capabilities with intelligent reasoning through Ollama DeepSeek and comprehensive result storage in OpenSearch.
 
-## 🏗️ Architecture
 
-```
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   FastAPI Web  │    │   CrewAI Agents  │    │ Docker Security │
-│   Interface     │───▶│   Orchestration  │───▶│     Tools       │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-         │                        │                        │
-         ▼                        ▼                        ▼
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   OpenSearch    │    │ Ollama DeepSeek  │    │   Result        │
-│   Results DB    │    │   AI Reasoning   │    │   Analytics     │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-```
 
-## 🔧 Features
+## 📁 Project Structure## 🚨 **ETHICAL USE NOTICE**
 
-### Core Capabilities
-- **Modular Architecture**: Separate modules for different testing phases
-- **AI-Powered Analysis**: CrewAI agents with Ollama DeepSeek reasoning
-- **Comprehensive Logging**: All results stored in OpenSearch
-- **Docker Isolation**: Security tools run in isolated containers
-- **REST API**: FastAPI-based web interface
-- **Real-time Monitoring**: Track test progress and results
 
-### Security Modules
-1. **Reconnaissance**: Port scanning, service detection, DNS enumeration
-2. **Vulnerability Scanning**: Nikto, OWASP ZAP, custom vulnerability checks
-3. **Exploitation**: SQLMap, safe exploitation testing
-4. **Password Testing**: Hydra, John the Ripper integration
-5. **Network Analysis**: Traffic analysis and monitoring
 
-### Security Controls
-- ✅ **Target Restriction**: Limited to authorized targets only
-- ✅ **User Consent**: Explicit consent required before testing
-- ✅ **Audit Logging**: Complete audit trail in OpenSearch
-- ✅ **Rate Limiting**: Respectful testing to avoid DoS
+```**This tool is designed for authorized penetration testing only. Currently restricted to testing juice-shop.herokuapp.com. Unauthorized use against any other targets is prohibited and may be illegal.**
+
+penetration-testing-framework/
+
+├── 📄 main.py                    # Main FastAPI application## 🏗️ Architecture
+
+├── 📄 main_demo.py               # Demo version for testing
+
+├── 📄 requirements.txt           # Python dependencies```
+
+├── 📄 .gitignore                 # Git ignore patterns┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+
+││   FastAPI Web  │    │   CrewAI Agents  │    │ Docker Security │
+
+├── 📁 pentest_app/               # Core application modules│   Interface     │───▶│   Orchestration  │───▶│     Tools       │
+
+│   ├── 📁 agents/               # CrewAI agents└─────────────────┘    └──────────────────┘    └─────────────────┘
+
+│   ├── 📁 modules/              # Testing modules (recon, vuln scan, etc.)         │                        │                        │
+
+│   └── 📁 utils/                # Utilities (OpenSearch, Docker)         ▼                        ▼                        ▼
+
+│┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+
+├── 📁 scripts/                   # Automation scripts│   OpenSearch    │    │ Ollama DeepSeek  │    │   Result        │
+
+│   ├── 📁 powershell/           # PowerShell automation│   Results DB    │    │   AI Reasoning   │    │   Analytics     │
+
+│   │   ├── complete-test.ps1    # Full automated testing└─────────────────┘    └──────────────────┘    └─────────────────┘
+
+│   │   ├── run-project.ps1      # Quick project startup```
+
+│   │   ├── setup-git.ps1        # Git repository setup
+
+│   │   └── validate-test.ps1    # Validation scripts## 🔧 Features
+
+│   ├── 📁 testing/              # API testing scripts
+
+│   │   ├── test-api.py          # Python API tests### Core Capabilities
+
+│   │   ├── test-api.ps1         # PowerShell API tests- **Modular Architecture**: Separate modules for different testing phases
+
+│   │   └── test-command.ps1     # Simple API testing- **AI-Powered Analysis**: CrewAI agents with Ollama DeepSeek reasoning
+
+│   ├── start-server.bat         # Windows batch startup- **Comprehensive Logging**: All results stored in OpenSearch
+
+│   └── start.sh                 # Linux/Mac startup- **Docker Isolation**: Security tools run in isolated containers
+
+│- **REST API**: FastAPI-based web interface
+
+├── 📁 docker/                    # Docker configuration- **Real-time Monitoring**: Track test progress and results
+
+│   ├── Dockerfile               # Container definition
+
+│   ├── docker-compose.yml       # Multi-service orchestration### Security Modules
+
+│   └── .dockerignore           # Docker ignore patterns1. **Reconnaissance**: Port scanning, service detection, DNS enumeration
+
+│2. **Vulnerability Scanning**: Nikto, OWASP ZAP, custom vulnerability checks
+
+├── 📁 config/                    # Configuration files3. **Exploitation**: SQLMap, safe exploitation testing
+
+│   └── .env.example             # Environment variables template4. **Password Testing**: Hydra, John the Ripper integration
+
+│5. **Network Analysis**: Traffic analysis and monitoring
+
+├── 📁 docs/                      # Documentation
+
+│   └── README.md                # Detailed documentation### Security Controls
+
+│- ✅ **Target Restriction**: Limited to authorized targets only
+
+└── 📁 .github/                   # GitHub configuration- ✅ **User Consent**: Explicit consent required before testing
+
+    └── copilot-instructions.md  # AI assistant instructions- ✅ **Audit Logging**: Complete audit trail in OpenSearch
+
+```- ✅ **Rate Limiting**: Respectful testing to avoid DoS
+
 - ✅ **Ethical Boundaries**: Non-destructive testing only
-
-## 📋 Prerequisites
-
-- **Docker & Docker Compose**: Latest versions
-- **Python 3.11+**: For local development
-- **4GB+ RAM**: For running all containers
-- **Network Access**: To OpenSearch instance and target
 
 ## 🚀 Quick Start
 
+## 📋 Prerequisites
+
+### Option 1: Demo Mode (Fastest)
+
+```powershell- **Docker & Docker Compose**: Latest versions
+
+# Start the demo server- **Python 3.11+**: For local development
+
+python -m uvicorn main_demo:app --reload --host 127.0.0.1 --port 8000- **4GB+ RAM**: For running all containers
+
+- **Network Access**: To OpenSearch instance and target
+
+# Test the API
+
+.\scripts\testing\test-command.ps1## 🚀 Quick Start
+
+```
+
 ### 1. Clone and Setup
 
-```bash
-git clone <your-repo>
-cd penetration-testing-framework
+### Option 2: Automated Setup
+
+```powershell```bash
+
+# Run complete setup and testinggit clone <your-repo>
+
+.\scripts\powershell\run-project.ps1cd penetration-testing-framework
+
+``````
+
+
+
+### Option 3: Docker Deployment### 2. Docker Deployment (Recommended)
+
+```powershell
+
+# Full containerized deployment```bash
+
+cd docker# Build and start all services
+
+docker-compose up --builddocker-compose up --build
+
 ```
-
-### 2. Docker Deployment (Recommended)
-
-```bash
-# Build and start all services
-docker-compose up --build
 
 # Check service health
-curl http://localhost:8000/health
+
+## 🔧 Configurationcurl http://localhost:8000/health
+
 ```
 
-### 3. Local Development Setup
+Copy the environment template:
 
-```bash
-# Create virtual environment
+```powershell### 3. Local Development Setup
+
+Copy-Item "config\.env.example" ".env"
+
+# Edit .env with your settings```bash
+
+```# Create virtual environment
+
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Install dependencies
-pip install -r requirements.txt
+## 📊 API Endpointssource venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Start Ollama separately
+
+
+- **Health Check**: `GET /health`# Install dependencies
+
+- **Start Pentest**: `POST /invoke_pentest`pip install -r requirements.txt
+
+- **Check Status**: `GET /pentest_status/{run_id}`
+
+- **API Docs**: `GET /docs`# Start Ollama separately
+
 docker run -d -p 11434:11434 ollama/ollama:latest
 
-# Pull DeepSeek model
-docker exec <ollama-container> ollama pull deepseek-coder
+## 🧪 Testing
 
-# Run the application
-uvicorn main:app --reload
+# Pull DeepSeek model
+
+Run all tests:docker exec <ollama-container> ollama pull deepseek-coder
+
+```powershell
+
+.\scripts\testing\test-api.ps1# Run the application
+
+```uvicorn main:app --reload
+
 ```
 
-## 📖 Usage Examples
+Quick validation:
 
-### Basic Penetration Test
+```powershell## 📖 Usage Examples
 
-```bash
+.\scripts\powershell\validate-test.ps1
+
+```### Basic Penetration Test
+
+
+
+## 🔒 Security Notice```bash
+
 # Start a penetration test
-curl -X POST "http://localhost:8000/invoke_pentest" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "target": "https://juice-shop.herokuapp.com",
-    "consent_acknowledged": true
+
+**This framework is designed for authorized penetration testing only.**curl -X POST "http://localhost:8000/invoke_pentest" \
+
+- Currently restricted to `juice-shop.herokuapp.com`  -H "Content-Type: application/json" \
+
+- User consent required before testing  -d '{
+
+- All activities logged for audit purposes    "target": "https://juice-shop.herokuapp.com",
+
+- Non-destructive testing approach only    "consent_acknowledged": true
+
   }'
 
+## 📖 Documentation
+
 # Response
-{
-  "run_id": "123e4567-e89b-12d3-a456-426614174000",
-  "status": "initiated",
+
+Full documentation is available in the `docs/` folder:{
+
+- [Detailed README](docs/README.md)  "run_id": "123e4567-e89b-12d3-a456-426614174000",
+
+- API documentation at `/docs` when server is running  "status": "initiated",
+
   "message": "Penetration test has been started. Use the run_id to check status.",
-  "target": "https://juice-shop.herokuapp.com",
+
+## 🛠️ Development  "target": "https://juice-shop.herokuapp.com",
+
   "timestamp": "2025-09-16T10:30:00Z",
-  "estimated_duration": "15-30 minutes"
-}
-```
+
+Setup development environment:  "estimated_duration": "15-30 minutes"
+
+```powershell}
+
+# Install dependencies```
+
+pip install -r requirements.txt
 
 ### Check Test Status
 
-```bash
-# Check test progress
+# Start development server
+
+python -m uvicorn main:app --reload```bash
+
+```# Check test progress
+
 curl "http://localhost:8000/pentest_status/123e4567-e89b-12d3-a456-426614174000"
 
+## 🤝 Contributing
+
 # Response
-{
-  "run_id": "123e4567-e89b-12d3-a456-426614174000",
-  "status": "running",
-  "progress": {
-    "current_phase": "vulnerability_scanning",
+
+1. Fork the repository{
+
+2. Create a feature branch  "run_id": "123e4567-e89b-12d3-a456-426614174000",
+
+3. Make your changes  "status": "running",
+
+4. Run tests: `.\scripts\testing\test-api.ps1`  "progress": {
+
+5. Submit a pull request    "current_phase": "vulnerability_scanning",
+
     "completed_modules": ["recon"],
-    "total_modules": 5,
+
+## 📝 License    "total_modules": 5,
+
     "percentage": 20
-  },
+
+This project is for educational and authorized security testing purposes only.  },
+
   "start_time": "2025-09-16T10:30:00Z"
-}
+
+---}
+
 ```
 
+**⚠️ ETHICAL USE ONLY**: Use responsibly and only against authorized targets.
 ### Retrieve Results
 
 ```bash
