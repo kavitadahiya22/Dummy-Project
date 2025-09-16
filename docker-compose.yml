@@ -1,0 +1,100 @@
+# Docker Compose Configuration for Penetration Testing Framework
+# =============================================================
+
+version: '3.8'
+
+services:
+  # Main penetration testing application
+  pentest-framework:
+    build: .
+    container_name: pentest-framework
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+      - OPENSEARCH_HOST=cybrty-dev-ca.wonderfuldune-e921120d.eastus.azurecontainerapps.io
+      - OPENSEARCH_PORT=443
+      - OPENSEARCH_USE_SSL=true
+      - OLLAMA_HOST=http://ollama:11434
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+    depends_on:
+      - ollama
+    networks:
+      - pentest-network
+    restart: unless-stopped
+
+  # Ollama service for AI reasoning
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-service
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - pentest-network
+    restart: unless-stopped
+    # Initialize with DeepSeek model
+    entrypoint: |
+      sh -c "
+        ollama serve &
+        sleep 10 &&
+        ollama pull deepseek-coder &&
+        wait
+      "
+
+  # Optional: Local OpenSearch for development (if not using external)
+  # Uncomment if you want to run OpenSearch locally instead of using the external instance
+  #
+  # opensearch:
+  #   image: opensearchproject/opensearch:2.11.0
+  #   container_name: opensearch-pentest
+  #   environment:
+  #     - cluster.name=pentest-cluster
+  #     - node.name=pentest-node
+  #     - discovery.type=single-node
+  #     - bootstrap.memory_lock=true
+  #     - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+  #     - DISABLE_SECURITY_PLUGIN=true
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #     nofile:
+  #       soft: 65536
+  #       hard: 65536
+  #   volumes:
+  #     - opensearch-data:/usr/share/opensearch/data
+  #   ports:
+  #     - "9200:9200"
+  #     - "9600:9600"
+  #   networks:
+  #     - pentest-network
+
+  # Optional: OpenSearch Dashboards for visualization
+  # Uncomment if using local OpenSearch
+  #
+  # opensearch-dashboards:
+  #   image: opensearchproject/opensearch-dashboards:2.11.0
+  #   container_name: opensearch-dashboards-pentest
+  #   ports:
+  #     - "5601:5601"
+  #   environment:
+  #     - 'OPENSEARCH_HOSTS=["http://opensearch:9200"]'
+  #     - DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
+  #   depends_on:
+  #     - opensearch
+  #   networks:
+  #     - pentest-network
+
+volumes:
+  ollama-data:
+    driver: local
+  # opensearch-data:
+  #   driver: local
+
+networks:
+  pentest-network:
+    driver: bridge
